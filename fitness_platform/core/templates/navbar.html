@@ -1,0 +1,302 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+        
+
+
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+.navbar{
+    height:60px;
+    background:#111;
+    color:white;
+    display:flex;
+    align-items:center;
+    padding:0 20px;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.nav-links{
+    display:flex;
+
+    gap:20px;
+}
+
+.nav-links a{
+    padding:10px 12px;
+    border-radius:25px;
+    color:white;
+    text-decoration:none;
+}
+    .nav-links a i{ color: white;}
+
+    .nav-links a:hover{
+        background-color: red;
+    }
+
+.menu-btn{
+    display:none;
+    font-size:24px;
+    cursor:pointer;
+}
+
+/* Sidebar */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-250px;
+    width:250px;
+    height:100vh;
+    background:#111;
+    padding-top:60px;
+    transition:0.3s;
+    z-index:1000;
+}
+
+.sidebar a{
+    display:block;
+    padding:15px 20px;
+    color:white;
+    text-decoration:none;
+    border-bottom:1px solid #222;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+/* Dropdown */
+
+.dropdown{
+    position:relative;
+    padding:10px 12px;
+    border-radius:5px;
+}
+
+.dropdown-content{
+    
+    position:absolute;
+    top:100%;
+    left:0;
+    background:#222;
+    min-width:180px;
+    display:none;
+    flex-direction:column;
+    z-index:999;
+    
+}
+
+.dropdown-content a{
+    padding:10px 15px;
+    color:white;
+    text-decoration:none;
+    display:block;
+    
+}
+
+.dropdown-content a:hover{
+    background:red;
+    
+}
+
+/* Desktop hover */
+.dropdown:hover .dropdown-content{
+    display:block;
+}
+
+/* Sidebar dropdown fix */
+.sidebar .dropdown{
+    position:static;
+}
+
+.sidebar .dropdown-content{
+    position:static;
+    background:#1a1a1a;
+}
+
+.show{
+    display:block !important;
+}
+.btn{
+    background:#e41f1f;
+    color:#fff;
+    padding:10px 12px;
+    border-radius:25px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+
+.cart-box{
+    position: relative;
+    display:inline-block;
+}
+
+.mini-cart{
+    display:none;
+    position:absolute;
+    right:0;
+    top:30px;
+    width:260px;
+    background:gray;
+    border:1px solid #ccc;
+    padding:10px;
+    z-index:999;
+}
+
+.cart-box:hover .mini-cart{
+    display:block;
+}
+
+.mini-item{
+    display:flex;
+    gap:10px;
+    margin-bottom:8px;
+}
+.mini-item img{
+    background-color:white;
+    border-radius: 30%;
+}
+
+
+
+
+/* Responsive */
+
+@media (max-width: 768px){
+    .nav-links{
+        display:none;
+    }
+    .menu-btn{
+        display:block;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Top Navbar -->
+<div class="navbar">
+    <div>
+    </div>
+
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Plans</a>
+        <a href="#">Contact</a>
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Services ▾</a>
+            <div class="dropdown-content">
+                <a href="#">Trainer List</a>
+                <a href="{%url 'shop'%}">Shoping</a>
+                <a href="#">Offers</a>
+            </div>
+        </div>
+        <a href="{%url 'login'%}" class="btn">Join Us</a>
+        
+
+    
+
+    <div id="mini-cart" style="display:none;" class="mini-cart">
+        {% include 'mini_cart.html' %}
+    </div>
+    
+<div class="cart-box">
+    <a href="{% url 'cart' %}">
+        🛒({{ request.session.cart|length|default:0 }})
+    </a> 
+
+    <div class="mini-cart">
+
+        {% if request.session.cart %}
+
+            {% for key, item in request.session.cart.items %}
+
+                <div class="mini-item">
+                    <img src="{{ item.image }}" width="60">
+                    <div>
+                        {{ item.title }} <br>
+                        Qty : {{ item.qty }}
+                        <br>
+                        <br>
+                        <a href="{% url 'remove_from_cart' key %}" style="background-color: red;">Remove</a>
+                    </div>
+                </div>
+<br>
+            {% endfor %}
+<hr>
+<br>
+            <a href="{% url 'cart' %}" class="add-btn">View cart</a>
+
+        {% else %}
+            <p>Cart is empty</p>
+        {% endif %}
+
+    </div>
+</div>
+
+
+</div>
+</a>
+        
+    </div>
+
+    <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+</div>
+
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+
+    <a href="#">Home</a>
+
+    <div class="dropdown">
+        <a href="javascript:void(0)" onclick="toggleDropdown()">Services ▾</a>
+
+        <div class="dropdown-content" id="mobileDrop">
+            <a href="#">Personal Training</a>
+            <a href="#">Diet Plan</a>
+            <a href="#">Online Coaching</a>
+        </div>
+    </div>
+
+    <a href="#">Plans</a>
+    <a href="#">Contact</a>
+    
+
+</div>
+
+
+<script>
+function toggleSidebar(){
+    document.getElementById("sidebar").classList.toggle("active");
+}
+
+function toggleDropdown(){
+    document.getElementById("mobileDrop").classList.toggle("show");
+}
+</script>
+    <script src="https://kit.fontawesome.com" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
+

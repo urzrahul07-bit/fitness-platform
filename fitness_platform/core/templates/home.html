@@ -1,0 +1,56 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fitrainer Home</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+    <div>📞 +33 847 765 655 | info@beastnation.com | 📍 SCO 105, B-Block Ranjit Avenue</div>
+</div>
+
+<!-- Header -->
+<header class="navbar">
+    <div class="logo">
+        <img src="">
+    </div>
+
+    <ul class="menu">
+        <li class="dropdown">
+            <a href="#">Home</a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Home 1</a></li>
+                <li><a href="#">Home 2</a></li>
+                <li><a href="#">Home 3</a></li>
+            </ul>
+        </li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Pages</a></li>
+        <li><a href="#">Programs</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+    <a href="{% url 'login' %}" class="join-btn">Join Us</a>
+</header>
+
+
+<!-- Hero Section -->
+<section class="hero">
+
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        <span class="small-title">Ultimate Fitness Destination!</span>
+        <h1>OBTAIN FITNESS<br>GOALS</h1>
+    </div>
+
+</section>
+
+</body>
+</html>

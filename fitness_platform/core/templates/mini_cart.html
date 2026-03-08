@@ -1,0 +1,25 @@
+{% if request.session.cart %}
+
+{% for key,item in request.session.cart.items %}
+
+<div class="mini-row">
+
+    <img src="{{ item.image }}" width="40">
+
+    {{ item.name }}
+
+    <form action="{% url 'update_cart' key %}" method="get" style="display:inline;">
+        <input type="number" name="qty" value="{{ item.qty }}" min="0"
+               onchange="this.form.submit()" style="width:45px">
+    </form>
+
+</div>
+
+{% endfor %}
+
+<hr>
+<a href="{% url 'cart' %}">Checkout</a>
+
+{% else %}
+<p>Cart is empty</p>
+{% endif %}

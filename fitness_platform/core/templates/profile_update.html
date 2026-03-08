@@ -1,0 +1,18 @@
+<form method="post">
+    {% csrf_token %}
+
+    <label>Phone</label>
+    <input type="text" name="phone" value="{{ profile.phone }}">
+
+    <label>Gender</label>
+    <input type="text" name="gender" value="{{ profile.gender }}">
+
+    <label>City</label>
+    <input type="text" name="city" value="{{ profile.city }}">
+
+    <label>Date of birth</label>
+    <input type="date" name="date_of_birth"
+           value="{{ profile.date_of_birth|date:'Y-m-d' }}">
+
+    <button type="submit">Update profile</button>
+</form>

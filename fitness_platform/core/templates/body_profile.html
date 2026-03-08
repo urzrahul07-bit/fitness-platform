@@ -1,0 +1,22 @@
+<h2>Body Profile</h2>
+
+<form method="post">
+    {% csrf_token %}
+    Age: <input type="number" name="age"><br>
+    Gender:
+    <select name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select><br>
+    Height (cm): <input type="number" name="height"><br>
+    Weight (kg): <input type="number" name="weight"><br>
+    Goal:
+    <select name="goal">
+        <option value="bulking">Bulking</option>
+        <option value="cutting">Cutting</option>
+        <option value="maintain">Maintain</option>
+    </select><br>
+    Workout Days / Week: <input type="number" name="workout_days"><br>
+
+    <button type="submit">Generate Diet</button>
+</form>

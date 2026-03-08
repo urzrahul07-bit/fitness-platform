@@ -1,0 +1,66 @@
+<!-- <h2>Body Profile</h2>
+
+<form method="post">
+    {% csrf_token %}
+    Age: <input type="number" name="age"><br>
+    Gender:
+    <select name="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select><br>
+    Height (cm): <input type="number" name="height"><br>
+    Weight (kg): <input type="number" name="weight"><br>
+    Goal:
+    <select name="goal">
+        <option value="bulking">Bulking</option>
+        <option value="cutting">Cutting</option>
+        <option value="maintain">Maintain</option>
+    </select><br>
+    Workout Days / Week: <input type="number" name="workout_days"><br>
+
+    <button type="submit">Generate Diet</button>
+</form> -->
+<h2>User Profile</h2>
+
+<h3>Account Information</h3>
+
+<p><b>Username :</b> {{ request.user.username }}</p>
+<p><b>Email :</b> {{ request.user.email }}</p>
+
+{% if reg_profile %}
+<p><b>Phone :</b> {{ reg_profile.phone }}</p>
+<p><b>Gender :</b> {{ reg_profile.gender }}</p>
+<p><b>City :</b> {{ reg_profile.city }}</p>
+<p><b>Date of Birth :</b> {{ reg_profile.date_of_birth }}</p>
+{% else %}
+<p>Registration details not found.</p>
+{% endif %}
+
+<hr>
+
+<h3>Fitness / Body Profile</h3>
+
+{% if body_profile %}
+<p><b>Age :</b> {{ body_profile.age }}</p>
+<p><b>Height :</b> {{ body_profile.height }}</p>
+<p><b>Weight :</b> {{ body_profile.weight }}</p>
+<p><b>Goal :</b> {{ body_profile.goal }}</p>
+    <a href="{% url 'profile' %}">Update Body Profile</a>
+{% else %}
+
+<a href="{% url 'profile' %}">Complete Body Profile</a>
+{% endif %}
+
+
+
+<hr>
+<h2>Your Diet Plan</h2>
+
+<p><b>BMI:</b> {{ bmi }}</p>
+<p><b>Calories:</b> {{ calories }}</p>
+<p><b>Protein:</b> {{ protein }} g</p>
+<p><b>Carbs:</b> {{ carbs }} g</p>
+<p><b>Fats:</b> {{ fats }} g</p>
+<hr>
+
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>
