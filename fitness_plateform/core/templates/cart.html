@@ -110,11 +110,11 @@
 <div class="cart-row">
 
     <div class="remove">
-        <a href="{% url 'remove_from_cart' item.key %}">×</a>
+        <a href="{% url 'remove_from_cart' item.key %}">X</a>
     </div>
 
     <div>
-        <img src="{{ item.image }}">
+        <img src="{{ item.image }}" width="80">
     </div>
 
     <div>{{ item.name }}</div>

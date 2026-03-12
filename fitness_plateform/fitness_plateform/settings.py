@@ -116,16 +116,17 @@ USE_TZ = True
 
 LOGIN_URL = '/login/'
 
-STATIC_URL = 'static/'
-
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
 
-RAZORPAY_KEY_ID = "rzp_test_xxxxxxxxxx"
-RAZORPAY_KEY_SECRET = "xxxxxxxxxxxxxxxxxx"
+RAZORPAY_KEY_ID = "rzp_test_SOfcBDCaQe9lEJ"
+RAZORPAY_KEY_SECRET = "YkDTrhElodm7j80qrQT6yKWU"
 
 
 

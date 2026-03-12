@@ -1,56 +1,207 @@
-
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Fitrainer Home</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<meta charset="UTF-8">
+<title>BeastNation</title>
+<link rel="stylesheet" href="/static/css/home.css">
 </head>
+
 <body>
 
-<!-- Top Bar -->
-<div class="top-bar">
-    <div>📞 +33 847 765 655 | info@beastnation.com | 📍 SCO 105, B-Block Ranjit Avenue</div>
+<!-- ================= SERVICES ================= -->
+
+<section class="services">
+
+<div class="container">
+
+<div class="section-header">
+
+<div>
+<span class="label">OUR SERVICES</span>
+<h2>Solutions For Moving Better <br> & Feeling Healthier</h2>
 </div>
 
-<!-- Header -->
-<header class="navbar">
-    <div class="logo">
-        <img src="">
-    </div>
+<div>
+<p>
+We provide professional training programs that improve
+strength, flexibility and overall fitness.
+</p>
+<a href="#" class="btn">View Services →</a>
+</div>
 
-    <ul class="menu">
-        <li class="dropdown">
-            <a href="#">Home</a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Home 1</a></li>
-                <li><a href="#">Home 2</a></li>
-                <li><a href="#">Home 3</a></li>
-            </ul>
-        </li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Pages</a></li>
-        <li><a href="#">Programs</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Contact</a></li>
-    </ul>
-
-    <a href="{% url 'login' %}" class="join-btn">Join Us</a>
-</header>
+</div>
 
 
-<!-- Hero Section -->
-<section class="hero">
+<div class="service-grid">
 
-    <div class="overlay"></div>
+<div class="service-card active">
+<div class="icon">❤</div>
+<h3>Body Building</h3>
+<p>Professional muscle building programs.</p>
+<a href="#">Read More →</a>
+</div>
 
-    <div class="hero-content">
-        <span class="small-title">Ultimate Fitness Destination!</span>
-        <h1>OBTAIN FITNESS<br>GOALS</h1>
-    </div>
+<div class="service-card">
+<div class="icon">💪</div>
+<h3>Power Lifting</h3>
+<p>Improve strength and endurance training.</p>
+<a href="#">Read More →</a>
+</div>
+
+<div class="service-card">
+<div class="icon">⏱</div>
+<h3>Discipline</h3>
+<p>Develop strong fitness habits.</p>
+<a href="#">Read More →</a>
+</div>
+
+<div class="service-card">
+<div class="icon">⚖</div>
+<h3>Yoga Training</h3>
+<p>Improve flexibility and balance.</p>
+<a href="#">Read More →</a>
+</div>
+
+</div>
+
+</div>
 
 </section>
+
+
+
+<!-- ================= WHY CHOOSE US ================= -->
+
+<section class="why">
+
+<div class="container why-grid">
+
+<div class="why-image"></div>
+
+<div class="why-content">
+
+<span class="label">WHY CHOOSE US</span>
+
+<h2>Make Yourself Stronger <br> Than Your Excuses</h2>
+
+<div class="why-cards">
+
+<div class="why-card">
+<div class="icon">⌚</div>
+<h4>Best Training</h4>
+<p>Personal training programs for every level.</p>
+</div>
+
+<div class="why-card">
+<div class="icon">❤</div>
+<h4>Cardio Programs</h4>
+<p>Improve heart health and endurance.</p>
+</div>
+
+<div class="why-card">
+<div class="icon">💪</div>
+<h4>Strength Workout</h4>
+<p>Build muscle and improve stamina.</p>
+</div>
+
+<div class="why-card">
+<div class="icon">🚴</div>
+<h4>Fitness Equipment</h4>
+<p>Modern gym equipment available.</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= TRAINERS ================= -->
+
+<section class="trainers">
+
+<div class="container">
+
+<div class="section-header">
+
+<div>
+<span class="label">OUR TRAINERS</span>
+<h2>Meet Expert Trainers</h2>
+</div>
+
+<a href="#" class="btn">View All →</a>
+
+</div>
+
+
+<div class="trainer-grid">
+
+<div class="trainer-card">
+<img src="/static/images/tr1.jpg">
+<h4>Kimberly Walker</h4>
+<span>Instructor</span>
+</div>
+
+<div class="trainer-card">
+<img src="/static/images/tr2.jpg">
+<h4>Smith Machine</h4>
+<span>Instructor</span>
+</div>
+
+<div class="trainer-card">
+<img src="/static/images/tr3.jpg">
+<h4>David Cooper</h4>
+<span>Trainer</span>
+</div>
+
+<div class="trainer-card">
+<img src="/static/images/tr4.jpg">
+<h4>Alex Jordan</h4>
+<span>Instructor</span>
+</div>
+
+<div class="trainer-card">
+<img src="/static/images/tr5.jpg">
+<h4>Chris Brown</h4>
+<span>Trainer</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= CONTACT STRIP ================= -->
+
+<section class="contact-strip">
+
+<div class="container contact-box">
+
+<div>
+
+<span class="label">GET A QUOTE</span>
+
+<h2>Got A Question? We Are Here To Help!</h2>
+
+<p>
+Contact our team for fitness consultation and training plans.
+</p>
+
+</div>
+
+<a href="#" class="btn">Contact Us →</a>
+
+</div>
+
+</section>
+
 
 </body>
 </html>

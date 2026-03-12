@@ -1,184 +1,138 @@
 {% load static %}
 {% include "navbar.html" %}
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>{{ product.title }}</title>
+<title>{{ item.name }}</title>
 
 <style>
 .detail-wrap{
-    max-width:1100px;
-    margin:40px auto;
-    display:flex;
-    gap:40px;
-    font-family:Arial;
+max-width:1100px;
+margin:40px auto;
+display:flex;
+gap:40px;
+font-family:Arial;
 }
 
-.left{
-    width:50%;
-}
+.left{width:50%}
 
 .main-img{
-    width:100%;
-    border-radius:14px;
+width:100%;
+border-radius:14px;
 }
 
-.thumb-row{
-    display:flex;
-    gap:10px;
-    margin-top:15px;
-}
-
-.thumb-row img{
-    width:80px;
-    height:80px;
-    object-fit:cover;
-    border-radius:8px;
-    border:1px solid #ddd;
-}
-
-.right{
-    width:50%;
-}
+.right{width:50%}
 
 .badge{
-    background:#ffcccc;
-    color:#b10000;
-    padding:6px 10px;
-    display:inline-block;
-    border-radius:6px;
-    font-size:13px;
-    margin-bottom:10px;
+background:#ffcccc;
+color:#b10000;
+padding:6px 10px;
+border-radius:6px;
+font-size:13px;
+display:inline-block;
+margin-bottom:10px;
 }
 
 .price{
-    font-size:26px;
-    color:#e60000;
-    margin:10px 0;
+font-size:26px;
+color:#e60000;
+margin:10px 0;
 }
 
 .old{
-    color:#777;
-    text-decoration:line-through;
-    font-size:16px;
-    margin-left:8px;
+color:#777;
+text-decoration:line-through;
+font-size:16px;
+margin-left:8px;
 }
 
 .offer{
-    background:#ffdede;
-    padding:15px;
-    border-radius:10px;
-    margin:15px 0;
-}
-
-.qty{
-    width:70px;
-    padding:10px;
-    border-radius:30px;
-    border:1px solid #ccc;
-    text-align:center;
+background:#ffdede;
+padding:15px;
+border-radius:10px;
+margin:15px 0;
 }
 
 .add-btn{
-    background:#e60000;
-    color:white;
-    padding:14px 35px;
-    border:none;
-    border-radius:40px;
-    font-size:16px;
-    cursor:pointer;
-    margin-top:20px;
+background:#e60000;
+color:white;
+padding:14px 35px;
+border:none;
+border-radius:40px;
+font-size:16px;
+cursor:pointer;
 }
 
-.add-btn a{
-    color:white;
-    text-decoration:none;
-}
-
-.thumb-row img{
-    width:60px;
-    height:60px;
-    object-fit:cover;
-    cursor:pointer;
-    border:2px solid transparent;
-}
-
-.thumb-row img:hover{
-    border:2px solid #000;
+.qty{
+width:70px;
+padding:8px;
+border-radius:20px;
+border:1px solid #ccc;
 }
 </style>
 
 </head>
+
 <body>
 
 <div class="detail-wrap">
 
-    <!-- LEFT -->
-    <div class="left">
+<!-- LEFT -->
 
-        {% if product.image %}
-            <img class="main-img" src="{{ product.image.url }}">
-        {% endif %}
+<div class="left">
 
-        <div class="thumb-row">
-    {% for t in thumbnails %}
-        {% if t.image %}
-            <a href="{% url 'product_detail' t.id %}">
-                <img src="{{ t.image.url }}">
-            </a>
-        {% endif %}
-    {% endfor %}
+{% if item.image %}
+<img class="main-img" src="{{ item.image.url }}">
+{% endif %}
+
 </div>
 
-    </div>
 
-    <!-- RIGHT -->
-    <div class="right">
+<!-- RIGHT -->
 
-        <div class="badge">Bestseller</div>
+<div class="right">
 
-        <h2>{{ product.name }}</h2>
+<div class="badge">Bestseller</div>
 
-        <div class="price">
-            ${{ product.price }}
-            {% if product.old_price %}
-                <span class="old">${{ product.old_price }}</span>
-            {% endif %}
-        </div>
+<h2>{{ item.name }}</h2>
 
-        <p>
-            {{ product.description }}
-        </p>
+<div class="price">
 
-        <div class="offer">
-            <b>Special Offer</b><br>
-            Buy now and get free access to our fitness community.
-        </div>
+₹{{ item.price }}
 
-        <p><b>Product ID:</b> SXXX{{ product.id }}</p>
+{% if item.old_price %}
+<span class="old">₹{{ item.old_price }}</span>
+{% endif %}
 
-                <form action="{% url 'add_to_cart' product.id %}" method="get">
-            <label>QTY:</label>
-            <input type="number" name="qty" value="1" min="1" style="width:60px; padding: 5Px;border-radius: 20%;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           
+</div>
+
+<p>{{ item.description }}</p>
+
+<div class="offer">
+<b>Special Offer</b><br>
+Buy now and get free access to our fitness community.
+</div>
+
+<p><b>Product ID:</b> SXXX{{ item.id }}</p>
+
+<form action="{% url 'add_to_cart' type item.id %}" method="get">
+
+<label>QTY:</label>
+
+<input class="qty" type="number" name="qty" value="1" min="1">
+
+<br><br>
+
 <button class="add-btn" type="submit">
+ADD TO CART
+</button>
 
-                ADD TO CART
-            </button>
-
-        </form>
-
-    </div>
+</form>
 
 </div>
-<script>
-function changeImage(src){
-    document.getElementById("mainImage").src = src;
-}
-</script>
+
+</div>
+
 </body>
 </html>

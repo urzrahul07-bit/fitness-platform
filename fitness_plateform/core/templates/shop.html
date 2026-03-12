@@ -3,22 +3,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Shop</title>
+<title>Materials</title>
 
 <style>
+
 body{
     font-family:Arial, sans-serif;
     background:#f6f6f6;
     margin:0;
 }
 
-/* top bar */
+/* TOP BAR */
 
 .top-bar{
+    padding:20px 50px;
+}
+
+.top-bar form{
     display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:30px 50px 10px;
+    gap:10px;
+}
+
+.top-bar input{
+    padding:10px 15px;
+    border-radius:25px;
+    border:1px solid #ddd;
 }
 
 .top-bar select{
@@ -27,52 +36,56 @@ body{
     border:1px solid #ddd;
 }
 
-.search-box{
-    display:flex;
-    gap:10px;
+.top-bar button{
+    padding:8px 16px;
 }
 
-.search-box input{
-    padding:10px 15px;
-    border-radius:25px;
-    border:1px solid #ddd;
-    outline:none;
-}
+/* MAIN LAYOUT */
 
-/* main layout */
-
-.shop-layout{
+.shop-container{
     display:grid;
-    grid-template-columns:1fr 300px;
+    grid-template-columns:3fr 1fr;
     gap:30px;
     padding:30px 50px;
 }
 
-/* product grid */
+/* PRODUCT GRID */
 
 .products{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    grid-template-columns:repeat(4,1fr);
     gap:25px;
 }
 
+/* PRODUCT CARD */
+
 .card{
-    background:#fff;
-    border-radius:20px;
-    padding:18px;
-    box-shadow:0 6px 18px rgba(0,0,0,.06);
+    background:white;
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
 }
 
 .card img{
     width:100%;
-    height:200px;
+    height:180px;
     object-fit:contain;
 }
 
+/* TITLE */
+
 .card h3{
     font-size:18px;
-    margin:10px 0 5px;
+    margin:10px 0;
 }
+
+/* PRICE */
 
 .price{
     font-size:18px;
@@ -80,44 +93,61 @@ body{
 }
 
 .old{
-    color:#aaa;
     text-decoration:line-through;
-    margin-left:8px;
+    color:gray;
+    font-size:14px;
 }
 
-.rating{
-    color:#e11d2e;
-    margin:5px 0;
-}
+/* BUTTON GROUP */
 
-.add-btn{
+.btn-group{
     margin-top:10px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+/* ADD TO CART */
+
+.cart-btn{
     background:#e11d2e;
     color:white;
-    border:none;
-    padding:10px 20px;
-    border-radius:25px;
-    cursor:pointer;
-    float:right;
+    padding:8px 16px;
+    border-radius:20px;
+    text-decoration:none;
+    font-size:14px;
 }
 
-/* sidebar */
+/* BUY NOW */
+
+.buy-btn{
+    background:black;
+    color:white;
+    padding:8px 16px;
+    border-radius:20px;
+    text-decoration:none;
+    font-size:14px;
+}
+
+/* SIDEBAR */
 
 .sidebar{
     background:white;
-    border-radius:20px;
+    border-radius:15px;
     padding:20px;
-    box-shadow:0 6px 18px rgba(0,0,0,.06);
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
 .sidebar h3{
     margin-top:0;
 }
 
+/* GALLERY */
+
 .gallery{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:12px;
+    gap:10px;
 }
 
 .gallery img{
@@ -125,85 +155,123 @@ body{
     height:80px;
     object-fit:contain;
     border:1px solid #eee;
-    border-radius:10px;
+    border-radius:8px;
     padding:5px;
 }
-.products .card a img:hover{
-    background-color: yellow;
-    
+
+/* PAGINATION */
+
+.pagination{
+    text-align:center;
+    padding:20px;
 }
+
+.pagination a{
+    margin:0 10px;
+}
+
 </style>
 
 </head>
 <body>
 
+<!-- SEARCH BAR -->
+
 <div class="top-bar">
-    <div>
-        Showing {{ products|length }} results
-    </div>
 
-    <select>
-        <option>Default sorting</option>
-        <option>Price low to high</option>
-        <option>Price high to low</option>
-    </select>
+<form method="GET">
 
-    <div class="search-box">
-        <input type="text" placeholder="Search...">
-    </div>
+<input type="text" name="search" placeholder="Search product">
+
+<select name="sort">
+<option value="">Default</option>
+<option value="low">Price Low to High</option>
+<option value="high">Price High to Low</option>
+</select>
+
+<button type="submit">Filter</button>
+
+</form>
+
 </div>
 
-<div class="shop-layout">
+<!-- MAIN SHOP -->
 
-    <!-- LEFT PRODUCT AREA -->
-    <div class="products">
+<div class="shop-container">
 
-        {% for p in products %}
-        <div class="card">
+<!-- PRODUCTS -->
 
-            <!-- <img src="{{ p.image.url }}"> -->
-             <a href="{% url 'product_detail' p.id %}">
-    <img src="{{ p.image.url }}">
+<div class="products">
+
+{% for item in items %}
+
+<div class="card">
+
+<a href="{% url 'product_detail' item.type item.id %}">
+<img src="{{ item.image.url }}">
 </a>
 
-            <h3>{{ p.name }}</h3>
+<h3>{{ item.name }}</h3>
 
-            <div class="rating">
-                {% for i in "12345"|slice:":p.rating" %}
-                    ★
-                {% endfor %}
-            </div>
+<div class="price">
+${{ item.price }}
 
-            <div class="price">
-                ${{ p.price }}
-                {% if p.old_price %}
-                <span class="old">${{ p.old_price }}</span>
-                {% endif %}
-            </div>
-
-            <button class="add-btn"><a href="{% url 'add_to_cart' p.id %}" class="btn">
-    Add
-</a></button>
-
-        </div>
-        {% endfor %}
-
-    </div>
-
-    <!-- RIGHT SIDEBAR -->
-     <div>
-        <h2>Gallary</h2>
-     
-    <div class="gallery">
-    {% for g in products|slice:":6" %}
-        {% if g.image %}
-            <img src="{{ g.image.url }}">
-        {% endif %}
-    {% endfor %}
+{% if item.old_price %}
+<span class="old">${{ item.old_price }}</span>
+{% endif %}
 </div>
+
+<div class="btn-group">
+
+<a href="{% url 'add_to_cart' item.type item.id %}" class="cart-btn">
+Add to Cart
+</a>
+
+<a href="{% url 'buy_now' item.type item.id %}" class="buy-btn">
+Buy Now
+</a>
+
 </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h3>Latest Products</h3>
+
+<div class="gallery">
+
+{% for item in items|slice:":6" %}
+<img src="{{ item.image.url }}">
+{% endfor %}
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PAGINATION -->
+
+<div class="pagination">
+
+{% if items.has_previous %}
+<a href="?page={{ items.previous_page_number }}">Prev</a>
+{% endif %}
+
+<span>{{ items.number }}</span>
+
+{% if items.has_next %}
+<a href="?page={{ items.next_page_number }}">Next</a>
+{% endif %}
+
 </div>
 
 </body>
 </html>
-
